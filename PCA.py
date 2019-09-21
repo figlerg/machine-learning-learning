@@ -16,7 +16,7 @@ U,S,Vh = svd(Y1,full_matrices=False)
 
 V = Vh.T    
 
-Z = Y1 @ V
+Z = Y1 @ V # project Y1 on V
 
 i = 0
 j = 1
@@ -24,8 +24,10 @@ j = 1
 f = figure()
 title('river data: PCA')
 
+# C made in init, length of?
 for c in range(C):
-    class_mask = y==c
+    class_mask = y==c # y is list of season values corresponding to current observations
+    class_mask
     plot(Z[class_mask,i], Z[class_mask,j], 'o', alpha=.5)
 legend(classNames)
 xlabel('PC{0}'.format(i+1))
