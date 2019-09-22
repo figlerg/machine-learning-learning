@@ -10,7 +10,7 @@ from PCA import *
 import matplotlib.pyplot as plt
 from scipy.linalg import svd
 
-rho = (S*S) / (S*S).sum()
+rho = (S*S) / (S*S).sum() # creates array with influences of each component
 
 threshold = 0.9
 
