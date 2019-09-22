@@ -16,14 +16,8 @@ filename = 'coil_river_data/analysis.csv'
 df = pd.read_csv(filename)
 df=df.dropna()
 
-<<<<<<< HEAD
-raw_data = df.get_values() 
-
-cols = range(3, 11)
-=======
 # raw_data = df.get_values() # apparently this is outdated and gives me a warning (Felix)
 raw_data = df.values # does the exact same thing
->>>>>>> master
 
 # columns 3-11 are the CC, therefore our x values
 cols = range(3, 11)
