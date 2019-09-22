@@ -11,16 +11,20 @@ from scipy.linalg import svd
 import numpy as np
 import pandas as pd
 
+
 filename = 'coil_river_data/analysis.csv'
 df = pd.read_csv(filename)
 df=df.dropna()
 
-raw_data = df.get_values() 
+# raw_data = df.get_values() # apparently this is outdated and gives me a warning (Felix)
+raw_data = df.values # does the exact same thing
 
-cols = range(3, 11) 
-
+# columns 3-11 are the CC, therefore our x values
+cols = range(3, 11)
 X = np.asarray(raw_data[:, cols]).astype(np.float64)
 
+# This is specifically for clustering (look at 1 specific category)
+# we sort by category {0:season, 1:river_size, 2:river_speed}
 attributeNames = np.asarray(df.columns[cols])
 classLabels = raw_data[:,0] 
 classNames = np.unique(classLabels)
