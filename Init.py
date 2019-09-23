@@ -11,8 +11,12 @@ from scipy.linalg import svd
 import numpy as np
 import pandas as pd
 
+
 filename = 'coil_river_data/analysis.csv'
-df = pd.read_csv(filename)
+
+attributeNames = ['season', 'river_size', 'flow_vel','CC1','CC2','CC3','CC4','CC5','CC6','CC7','CC8','AG1','AG2','AG3','AG4','AG5','AG6','AG7']
+
+df = pd.read_csv((filename),names=attributeNames)
 df=df.dropna()
 
 raw_data = df.get_values() 
@@ -28,6 +32,8 @@ classNames = np.unique(classLabels)
 classDict = dict(zip(classNames,range(len(classNames))))
 
 y = np.array([classDict[cl] for cl in classLabels])
+#y = np.zeros(len(X))
+y#[df.AG6>np.median(df.AG6)] = 1
 
 N, M = X.shape
 

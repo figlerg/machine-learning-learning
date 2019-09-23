@@ -18,7 +18,7 @@ V = Vh.T
 Z = Y1 @ V
 
 i = 0
-j = 1
+j = 4
 
 f = figure()
 title('river data: PCA')
@@ -26,6 +26,19 @@ title('river data: PCA')
 for c in range(C):
     class_mask = y==c
     plot(Z[class_mask,i], Z[class_mask,j], 'o', alpha=.5)
+legend(classNames)
+xlabel('PC{0}'.format(i+1))
+ylabel('PC{0}'.format(j+1))
+
+show()
+
+
+f = figure()
+title('test coloring')
+
+for c in range(C):
+    class_mask = y==c
+    plot(df.AG4[class_mask], 'o', alpha=.5)
 legend(classNames)
 xlabel('PC{0}'.format(i+1))
 ylabel('PC{0}'.format(j+1))
