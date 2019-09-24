@@ -18,6 +18,8 @@ U,S,Vh = svd(Y1,full_matrices=False)
 V = Vh.T # transpose
 
 Z = Y1 @ V # project Y1 on V (@ is a matrix multiplication)
+# TODO try our hypothesis for 2.1.5. with this projection (higher influence ones with high value
+ # make more of a posiitive influence on the projection)
 
 i = 0
 j = 1
