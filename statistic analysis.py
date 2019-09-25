@@ -36,3 +36,6 @@ sd = X.std(axis=0,ddof=1)
 labels = list(df.columns)[3:-1]
 medians = [np.median(df[name].values) for name in labels] # for num values
 # TODO ranges
+# OR
+stats = df.describe() #select interesting ones
+

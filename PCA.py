@@ -8,6 +8,7 @@ from Init import *
 
 from matplotlib.pyplot import figure, plot, title, xlabel, ylabel, show, legend
 from scipy.linalg import svd
+import matplotlib.pyplot as plt
 
 # TODO rename variable, Y is very confusing in this context. X_tilde maybe? (Felix)
 Y = X - np.ones((N,1))*X.mean(0) # axis=0 returns means of all columns
@@ -22,10 +23,11 @@ Z = Y1 @ V # project Y1 on V (@ is a matrix multiplication)
  # make more of a posiitive influence on the projection)
 
 i = 0
-j = 1
+j = 5
 
 f = figure()
-title('river data: PCA')
+clustering_info = 'scatterplot ' + name
+title('river data: PCA ' + clustering_info)
 
 # C made in init, length of class names. (eg 4 for seasons)
 for c in range(C):
@@ -35,4 +37,6 @@ legend(classNames)
 xlabel('PC{0}'.format(i+1))
 ylabel('PC{0}'.format(j+1))
 
-show()
+plt.savefig('plot.jpg')
+
+# show()
