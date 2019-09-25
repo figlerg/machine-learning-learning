@@ -17,9 +17,13 @@ df=df.dropna()
 
 raw_data = df.get_values() 
 
-cols = range(3, 11) 
+cols = range(3, 11)
 
-X = np.asarray(raw_data[:, cols]).astype(np.float64)
+X_num = np.asarray(raw_data[:, cols]).astype(np.float64)
+X_cat = raw_data[:,range(3)] # TODO translate this to numbers/ one out of k dummies
+
+X = np.concatenate([X_cat, X_num], 1)
+
 
 ## quantiles!
 # name = 'AF1'
