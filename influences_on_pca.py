@@ -2,7 +2,7 @@
 
 # (requires data structures from ex. 2.2.1)
 import matplotlib.pyplot as plt
-from Init_final_version import *
+from Init import *
 
 from scipy.linalg import svd
 
@@ -22,10 +22,10 @@ plt.ylabel('Component coefficients')
 plt.legend(legendStrs)
 plt.grid()
 plt.title('FOIL algae: PCA Component Coefficients')
-plt.savefig('influence_plot.jpg')
-# plt.show()
+# plt.savefig('influence_plot.jpg')
+plt.show()
 
-## TODO clean this copy paste stuff out, probably unnecessary
+## TODO clean this copy paste stuff out, probably unnecessary:
 # Inspecting the plot, we see that the 2nd principal component has large
 # (in magnitude) coefficients for attributes A, E and H. We can confirm
 # this by looking at it's numerical values directly, too:
