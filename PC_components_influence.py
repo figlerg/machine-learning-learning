@@ -1,16 +1,10 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Sep 16 17:23:03 2019
-
-@author: louis
-"""
 from Init import *
 from PCA import *
 
 import matplotlib.pyplot as plt
 from scipy.linalg import svd
 
-rho = (S*S) / (S*S).sum() # creates array with influences of each component
+rho = (S*S) / (S*S).sum() 
 
 threshold = 0.9
 

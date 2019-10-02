@@ -1,38 +1,60 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Sep 16 15:26:57 2019
-
-@author: louis
-"""
-
 from matplotlib.pyplot import figure, plot, title, xlabel, ylabel, show, legend
 from scipy.linalg import svd
+from categorisation import categorisation
 
 import numpy as np
 import pandas as pd
+import categoric2numeric
 
-
-filename = 'coil_river_data/analysis.csv'
+filename = 'analysis.csv'
 df = pd.read_csv(filename)
-df=df.dropna()
+df = df.dropna()
 
-# raw_data = df.get_values() # apparently this is outdated and gives me a warning (Felix)
-raw_data = df.values # does the exact same thing
+raw_data = df.get_values()
 
-# columns 3-11 are the CC, therefore our x values
+#the columns are those corresponding to the chemical concentrations
+
 cols = range(3, 11)
-X = np.asarray(raw_data[:, cols]).astype(np.float64)
 
-# This is specifically for clustering (look at 1 specific category)
-# we sort by category {0:season, 1:river_size, 2:river_speed}
-attributeNames = np.asarray(df.columns[cols])
-classLabels = raw_data[:,2]
-classNames = np.unique(classLabels)
+X_num = np.asarray(raw_data[:, cols]).astype(np.float64)
 
-classDict = dict(zip(classNames,range(len(classNames))))
+#Y refers to algaes frequencies
 
-y = np.array([classDict[cl] for cl in classLabels])
+Y = raw_data[:, range(11, 18)]
 
-N, M = X.shape
+#normalization of the vector X_num
+
+numerical_normalized = np.array((X_num - np.ones((167, 1)) * X_num.mean(0)) * (1 / np.std(X_num, 0)))
+
+#One-of-K method for discrete variables 
+
+season = categoric2numeric.categoric2numeric([raw_data[i][0] for i in range(len(raw_data))])
+autumn = np.array([x[0] for x in season[0]])
+spring = np.array([x[1] for x in season[0]])
+summer = np.array([x[2] for x in season[0]])
+winter = np.array([x[3] for x in season[0]])
+
+river_size = categoric2numeric.categoric2numeric([raw_data[i][1] for i in range(len(raw_data))])
+large_river = np.array([x[0] for x in river_size[0]])
+medium_river = np.array([x[1] for x in river_size[0]])
+small_river = np.array([x[2] for x in river_size[0]])
+
+flow_vel = categoric2numeric.categoric2numeric([raw_data[i][2] for i in range(len(raw_data))])
+high_flow = np.array([x[0] for x in flow_vel[0]])
+low_flow = np.array([x[1] for x in flow_vel[0]])
+medium_flow = np.array([x[2] for x in flow_vel[0]])
+
+X_normalized = np.c_[
+    autumn, spring, summer, winter, large_river, medium_river, small_river, high_flow, low_flow, medium_flow, numerical_normalized]
+
+N, M = X_normalized.shape
+
+# attributeNames = ['autumn', 'spring', 'summer', 'winter', 'large_river', 'medium_river', 'small_river', 'high_flow', 'low_flow', 'medium_flow'] + list(df.columns[cols])
+attributeNames = ['au', 'sp', 'su', 'wi', 'l', 'm', 's', 'h', 'l', 'm_f'] + list(df.columns[cols])
+
+# this function is in categorisation.py
+y, classLabels, classNames = categorisation(df, 'AF1', 0)
 
 C = len(classNames)
+
+print('data set up in Init.py')
